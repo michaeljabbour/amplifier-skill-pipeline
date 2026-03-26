@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>amplifier-bundle-cicd — Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; font-family: -apple-system, 'Segoe UI', sans-serif; color: #e6edf3; display: flex; justify-content: center; padding: 40px 20px; }
+  .canvas { width: 1200px; position: relative; }
+  h1 { text-align: center; font-size: 28px; font-weight: 600; margin-bottom: 8px; color: #f0f6fc; }
+  .subtitle { text-align: center; font-size: 14px; color: #8b949e; margin-bottom: 40px; }
+
+  /* Entry points */
+  .entry-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 32px; }
+  .entry { padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; border: 1px solid; }
+  .entry.greenfield { background: #0d1f0d; border-color: #238636; color: #3fb950; }
+  .entry.migration { background: #0d1926; border-color: #1f6feb; color: #58a6ff; }
+  .entry.optimization { background: #261a0d; border-color: #d29922; color: #e3b341; }
+  .entry.audit { background: #1a0d26; border-color: #8957e5; color: #bc8cff; }
+
+  .arrow-down { text-align: center; color: #30363d; font-size: 24px; margin: 8px 0; }
+
+  /* Main flow */
+  .flow { display: flex; align-items: stretch; gap: 0; margin: 24px 0; position: relative; }
+  .agent-box { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid #30363d; background: #161b22; position: relative; }
+  .agent-box h3 { font-size: 15px; margin-bottom: 6px; }
+  .agent-box p { font-size: 12px; color: #8b949e; line-height: 1.5; }
+  .agent-box .icon { font-size: 28px; margin-bottom: 8px; }
+
+  .agent-box.scout { border-color: #2ea043; }
+  .agent-box.scout h3 { color: #3fb950; }
+  .agent-box.architect { border-color: #1f6feb; border-width: 2px; background: #0d1926; }
+  .agent-box.architect h3 { color: #58a6ff; }
+  .agent-box.generator { border-color: #238636; }
+  .agent-box.generator h3 { color: #3fb950; }
+
+  .flow-arrow { display: flex; align-items: center; padding: 0 8px; color: #30363d; font-size: 28px; }
+
+  .data-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 10px; }
+  .badge-profile { background: #0d2818; color: #3fb950; border: 1px solid #238636; }
+  .badge-apr { background: #0d1926; color: #58a6ff; border: 1px solid #1f6feb; font-size: 13px; padding: 6px 14px; }
+
+  /* Platform outputs */
+  .platforms { display: flex; gap: 12px; margin-top: 12px; }
+  .platform { padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #0d1f0d; color: #3fb950; border: 1px solid #238636; }
+  .platform.primary { background: #238636; color: #fff; }
+
+  /* Supporting agents */
+  .support-row { display: flex; justify-content: center; gap: 16px; margin: 32px 0; }
+  .support-box { flex: 1; max-width: 260px; padding: 16px; border-radius: 10px; border: 1px solid #30363d; background: #161b22; text-align: center; }
+  .support-box .icon { font-size: 24px; margin-bottom: 6px; }
+  .support-box h4 { font-size: 13px; color: #e3b341; margin-bottom: 4px; }
+  .support-box p { font-size: 11px; color: #8b949e; }
+
+  /* Stage library */
+  .stage-lib { margin-top: 32px; padding: 20px; border-radius: 12px; border: 1px solid #30363d; background: #161b22; text-align: center; }
+  .stage-lib h3 { font-size: 14px; color: #8b949e; margin-bottom: 12px; }
+  .stages { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .stage { padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .stage.build { background: #0d2818; color: #3fb950; border: 1px solid #238636; }
+  .stage.test { background: #0d1926; color: #58a6ff; border: 1px solid #1f6feb; }
+  .stage.quality { background: #1a0d26; color: #bc8cff; border: 1px solid #8957e5; }
+  .stage.security { background: #260d0d; color: #f85149; border: 1px solid #da3633; }
+  .stage.deploy { background: #261a0d; color: #e3b341; border: 1px solid #d29922; }
+  .stage.perf { background: #0d2626; color: #39d353; border: 1px solid #2ea043; }
+
+  .arrow-up { text-align: center; color: #30363d; font-size: 24px; margin: 12px 0; }
+
+  /* APR highlight */
+  .apr-center { text-align: center; margin: 16px 0; }
+  .apr-glow { display: inline-block; padding: 12px 32px; border-radius: 10px; background: linear-gradient(135deg, #0d1926, #1a1040); border: 2px solid #1f6feb; box-shadow: 0 0 20px rgba(31,111,235,0.3), 0 0 60px rgba(31,111,235,0.1); }
+  .apr-glow span { font-size: 18px; font-weight: 700; color: #58a6ff; }
+  .apr-glow small { display: block; font-size: 11px; color: #8b949e; margin-top: 2px; }
+
+  .section-label { text-align: center; font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin: 24px 0 12px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <h1>amplifier-bundle-cicd</h1>
+  <p class="subtitle">CI/CD Pipeline Bundle — Architecture Overview</p>
+
+  <div class="section-label">Entry Points</div>
+  <div class="entry-row">
+    <div class="entry greenfield">Greenfield</div>
+    <div class="entry migration">Migration</div>
+    <div class="entry optimization">Optimization</div>
+    <div class="entry audit">Audit</div>
+  </div>
+
+  <div class="arrow-down">▼</div>
+
+  <div class="section-label">Main Pipeline</div>
+  <div class="flow">
+    <div class="agent-box scout">
+      <div class="icon">🔍</div>
+      <h3>Pipeline Scout</h3>
+      <p>Inspects project files, detects languages, frameworks, build tools, test runners, Docker, existing CI configs</p>
+      <div class="data-badge badge-profile">→ Project Profile</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="agent-box architect">
+      <div class="icon">🏗️</div>
+      <h3>Pipeline Architect</h3>
+      <p>Designs the pipeline: selects stages, jobs, triggers, caching, security scanning, deployment gating</p>
+      <div class="data-badge badge-apr">→ APR</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="agent-box generator">
+      <div class="icon">⚙️</div>
+      <h3>Platform Generator</h3>
+      <p>Renders APR into native CI/CD config using platform-specific context files</p>
+      <div class="platforms">
+        <span class="platform primary">GitHub Actions</span>
+        <span class="platform">GitLab CI</span>
+        <span class="platform">Azure DevOps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="apr-center">
+    <div class="apr-glow">
+      <span>Abstract Pipeline Representation</span>
+      <small>Platform-agnostic &bull; Human-readable &bull; Diffable &bull; The single source of truth</small>
+    </div>
+  </div>
+
+  <div class="section-label">Supporting Agents</div>
+  <div class="support-row">
+    <div class="support-box">
+      <div class="icon">📊</div>
+      <h4>Pipeline Auditor</h4>
+      <p>Analyzes existing configs → APR. Scores against best practices. Detects drift.</p>
+    </div>
+    <div class="support-box">
+      <div class="icon">🔒</div>
+      <h4>Secrets Assessor</h4>
+      <p>Security-aware secrets management. Active setup when safe, guidance when not.</p>
+    </div>
+    <div class="support-box">
+      <div class="icon">📝</div>
+      <h4>Pipeline Documenter</h4>
+      <p>Generates human-readable docs: what, why, how to customize, failure runbook.</p>
+    </div>
+  </div>
+
+  <div class="arrow-up">▲ feeds into architect</div>
+
+  <div class="stage-lib">
+    <h3>Composable Stage Library</h3>
+    <div class="stages">
+      <span class="stage build">Build</span>
+      <span class="stage test">Test</span>
+      <span class="stage quality">Quality</span>
+      <span class="stage security">Security</span>
+      <span class="stage deploy">Deploy</span>
+      <span class="stage perf">Performance</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
