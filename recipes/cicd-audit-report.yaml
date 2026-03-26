@@ -1,0 +1,18 @@
+name: CI/CD Audit Report
+description: Analyze an existing pipeline and produce a scored audit report. No modifications.
+
+steps:
+  - name: detect
+    agent: cicd:agents/pipeline-scout
+    instruction: |
+      Inspect the project to find existing CI/CD configuration files.
+      Produce a Project Profile focusing on the existing_ci section.
+
+  - name: audit
+    agent: cicd:agents/pipeline-auditor
+    instruction: |
+      Analyze the existing CI/CD configuration files found by the scout.
+      Produce a full audit report with scores across all 6 categories:
+      Speed, Reliability, Security, Maintainability, Coverage, Deployment.
+      Include critical issues, prioritized recommendations with effort estimates,
+      and detailed findings per category.

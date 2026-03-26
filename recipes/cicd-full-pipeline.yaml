@@ -1,0 +1,43 @@
+name: CI/CD Full Pipeline (Autonomous)
+description: End-to-end pipeline generation — detect, design, generate, validate, document. No approval gates.
+
+steps:
+  - name: explore
+    agent: cicd:agents/pipeline-scout
+    instruction: |
+      Inspect the project at the current working directory. Produce a complete Project Profile
+      following the schema at @cicd:context/schemas/project-profile.md.
+      Include all detected languages, frameworks, build tools, test runners, and existing CI configs.
+      List any gaps that need user input.
+
+  - name: design
+    agent: cicd:agents/pipeline-architect
+    instruction: |
+      Design a complete Abstract Pipeline Representation (APR) based on the Project Profile
+      from the previous step. Follow the schema at @cicd:context/schemas/apr-schema.md.
+      Use smart defaults for any gaps: trunk-based branching, staging+production environments,
+      GitHub Actions as target platform. Include security scanning and caching optimization.
+
+  - name: generate
+    agent: cicd:agents/platform-generator
+    instruction: |
+      Render the APR from the previous step into native GitHub Actions workflow files.
+      Write files to .github/workflows/. Save the APR to .cicd/apr.yaml.
+      Use platform context files at @cicd:context/platforms/github-actions/.
+      Follow all best practices: pin action versions, set explicit permissions, configure caching.
+
+  - name: document
+    agent: cicd:agents/pipeline-documenter
+    instruction: |
+      Generate pipeline documentation based on the APR and generated workflow files.
+      Write to .cicd/README.md. Include: overview, stage breakdown, secrets guide,
+      customization guide, and troubleshooting runbook.
+
+  - name: validate
+    instruction: |
+      Validate the generated workflow files:
+      1. Check YAML syntax validity
+      2. Run actionlint if available
+      3. Verify all APR secrets are referenced
+      4. Verify all APR stages are represented
+      Report pass/fail for each check.

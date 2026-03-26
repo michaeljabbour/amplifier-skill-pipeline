@@ -1,0 +1,32 @@
+name: CI/CD Migration
+description: Migrate from one CI/CD platform to another via APR intermediate representation.
+
+steps:
+  - name: detect
+    agent: cicd:agents/pipeline-scout
+    instruction: |
+      Inspect the project. Identify the source CI/CD platform and config files.
+      Produce a Project Profile with detailed existing_ci section.
+
+  - name: reverse-engineer
+    agent: cicd:agents/pipeline-auditor
+    instruction: |
+      Reverse-engineer the existing CI/CD configs into an Abstract Pipeline Representation.
+      Parse the source platform's config and map to APR schema.
+      Note any platform-specific features that may not have direct equivalents.
+
+  - name: approve-apr
+    type: approval
+    message: "APR reverse-engineered from source platform. Review before generating target platform configs."
+
+  - name: generate
+    agent: cicd:agents/platform-generator
+    instruction: |
+      Render the APR into native config for the target platform.
+      The target platform should be specified by the user or default to GitHub Actions.
+
+  - name: document
+    agent: cicd:agents/pipeline-documenter
+    instruction: |
+      Document the migrated pipeline. Include a migration notes section
+      covering what changed between platforms and any manual steps needed.

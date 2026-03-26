@@ -1,0 +1,38 @@
+name: CI/CD Guided Pipeline (Interactive)
+description: Pipeline generation with approval gates after detection, design, and generation.
+
+steps:
+  - name: explore
+    agent: cicd:agents/pipeline-scout
+    instruction: |
+      Inspect the project at the current working directory. Produce a complete Project Profile.
+      Present findings to the user and ask about any gaps.
+
+  - name: approve-profile
+    type: approval
+    message: "Project Profile complete. Review the detected tech stack and answer any remaining questions before pipeline design begins."
+
+  - name: design
+    agent: cicd:agents/pipeline-architect
+    instruction: |
+      Design a complete APR based on the approved Project Profile.
+      Present the pipeline design conversationally — stages, jobs, estimated run times.
+
+  - name: approve-design
+    type: approval
+    message: "Pipeline design complete. Review the APR before generating config files."
+
+  - name: generate
+    agent: cicd:agents/platform-generator
+    instruction: |
+      Render the approved APR into native platform config files.
+      Write to the project and save APR to .cicd/apr.yaml.
+
+  - name: approve-generation
+    type: approval
+    message: "Config files generated. Review before committing."
+
+  - name: document
+    agent: cicd:agents/pipeline-documenter
+    instruction: |
+      Generate pipeline documentation. Write to .cicd/README.md.
