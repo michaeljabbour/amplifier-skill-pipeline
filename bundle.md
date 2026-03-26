@@ -1,10 +1,16 @@
 ---
 bundle:
   name: cicd
-  version: 0.1.0
+  version: 0.2.0
 
 includes:
   - behaviors/core
+
+agents:
+  pipeline-scout:
+    source: agents/pipeline-scout.md
+  pipeline-architect:
+    source: agents/pipeline-architect.md
 
 tools: []
 ---
@@ -30,3 +36,10 @@ Designs, generates, audits, and maintains CI/CD pipelines for applications.
 4. **Pipeline Auditor** can analyze existing pipelines for improvements
 5. **Secrets Assessor** configures secrets when safe, provides guidance when not
 6. **Pipeline Documenter** generates human-readable pipeline documentation
+
+## Available Modes
+
+| Mode | Phase |
+|---|---|
+| `/cicd-explore` | Discover project tech stack and CI/CD needs |
+| `/cicd-design` | Design the Abstract Pipeline Representation |
