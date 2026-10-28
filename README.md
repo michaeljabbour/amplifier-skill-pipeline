@@ -1,10 +1,45 @@
 # Pipeline
 
-Turn a project’s actual build and release needs into a reviewable pipeline across CI platforms.
+Build the pipeline your project actually needs.
 
-## Consolidated capability
+For developers creating, repairing or moving CI. Pipeline starts with your real commands and artifact consumers, makes job dependencies reviewable and then generates configuration for the selected platform.
 
-Portable method: [skills/pipeline/SKILL.md](skills/pipeline/SKILL.md). Install with `python3 scripts/capability.py install --dest ~/.agents/skills`. See [consolidation and runtime boundaries](docs/CONSOLIDATION.md). The retained source guide below documents the optional original host integration and historical evidence; it is not a new outcome claim.
+[Explore the site](https://michaeljabbour.github.io/amplifier-skill-pipeline/)
+
+## What you get
+
+- **Start with working commands.** Read manifests, lockfiles and existing tests before adding a job.
+- **See dependencies before syntax.** Use the optional abstract representation to review stages, artifacts, timeouts and secret names across platforms.
+- **Keep release boundaries explicit.** Separate a build, a green CI run and an approved deployment so generation does not silently publish anything.
+
+## Start here
+
+```sh
+git clone https://github.com/michaeljabbour/amplifier-skill-pipeline.git
+cd amplifier-skill-pipeline
+python3 scripts/capability.py install --dest ~/.agents/skills
+```
+
+This installs the portable method and its packaged references into your agent skill folder. If your host uses another folder, pass that path to `--dest`. Start a new session or use your host’s skill refresh so it can discover the installed skill. Optional native tools are installed separately.
+
+Try this first task:
+
+> Use Pipeline to inspect a fictional Python project and propose a test-and-wheel pipeline for GitHub Actions. Name the real commands and artifact consumer. Include timeouts and minimal permissions. Do not add deployment, secrets or publishing.
+
+## What you need
+
+- Python 3.11 or later for the portable install helper.
+- Install the portable skill and stdlib APR checker without a model key.
+- Platform references are loaded as needed; the actual CI service and runner remain separate.
+- Keep secret values out of the design; name only the required secrets.
+
+## Evidence and limits
+
+The packaged APR checker exercises structural reference and cycle failures. Generated configuration still needs native validation, a real run and separate deployment acceptance.
+
+The worked examples on the site are fictional. They illustrate the output and decisions; they are not user results or measured benefit. See [consolidation and runtime boundaries](docs/CONSOLIDATION.md) for retained interfaces and acceptance scope.
+
+---
 
 ## Retained source guide
 

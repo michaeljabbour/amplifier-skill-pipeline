@@ -2,7 +2,7 @@
   "id": "pipeline",
   "display_name": "Pipeline",
   "kind": "skill",
-  "promise": "Turn a project\u2019s actual build and release needs into a reviewable pipeline across CI platforms.",
+  "promise": "Turn a project’s actual build and release needs into a reviewable pipeline across CI platforms.",
   "audience": "Developers creating or migrating CI/CD workflows.",
   "trigger": "Create, audit, repair or migrate a build/test/release pipeline.",
   "skill_path": "skills/pipeline",
@@ -25,8 +25,8 @@
   ],
   "examples": [
     {
-      "title": "Fictional worked example",
-      "brief": "A fictional task illustrating Pipeline.",
+      "title": "Build a wheel without publishing it",
+      "brief": "Use Pipeline to inspect a fictional Python project and propose a test-and-wheel pipeline for GitHub Actions. Name the real commands and artifact consumer. Include timeouts and minimal permissions. Do not add deployment, secrets or publishing.",
       "before": "A platform migration copies YAML syntax but drops release approvals and artifact dependencies.",
       "after": "An APR and native diff preserve triggers, jobs, approvals and consumers.",
       "why": "A shared intermediate representation makes consequential drift reviewable.",
@@ -78,5 +78,58 @@
   "docs": [
     "docs/CONSOLIDATION.md"
   ],
-  "publication_status": "Installation and evidence scopes are documented below."
+  "publication_status": "Installation and evidence scopes are documented below.",
+  "marketing": {
+    "headline": "Build the pipeline your project actually needs.",
+    "lead": "For developers creating, repairing or moving CI. Pipeline starts with your real commands and artifact consumers, makes job dependencies reviewable and then generates configuration for the selected platform.",
+    "benefits": [
+      {
+        "title": "Start with working commands",
+        "body": "Read manifests, lockfiles and existing tests before adding a job."
+      },
+      {
+        "title": "See dependencies before syntax",
+        "body": "Use the optional abstract representation to review stages, artifacts, timeouts and secret names across platforms."
+      },
+      {
+        "title": "Keep release boundaries explicit",
+        "body": "Separate a build, a green CI run and an approved deployment so generation does not silently publish anything."
+      }
+    ],
+    "walkthrough": [
+      {
+        "title": "Scout the project",
+        "detail": "Identify supported build and test commands, runtime versions, consumers and the current release path."
+      },
+      {
+        "title": "Review the design",
+        "detail": "Describe jobs and dependencies. Use the APR checker for cycles, missing references, timeouts and undeclared secrets."
+      },
+      {
+        "title": "Generate and validate",
+        "detail": "Render native configuration for GitHub Actions, GitLab CI or Azure DevOps, then use that platform’s validator and a disposable run."
+      }
+    ],
+    "use_when": [
+      "You need CI for an existing project with real build and test commands.",
+      "You are migrating between supported CI platforms.",
+      "A pipeline needs a dependency, permission or release-boundary audit."
+    ],
+    "not_for": [
+      "Deploying because someone asked for a build.",
+      "Treating the APR checker as a validator for arbitrary native YAML."
+    ],
+    "quickstart_prompt": "Use Pipeline to inspect a fictional Python project and propose a test-and-wheel pipeline for GitHub Actions. Name the real commands and artifact consumer. Include timeouts and minimal permissions. Do not add deployment, secrets or publishing.",
+    "output_preview": "Proposed jobs\nTest → supported Python versions, actual test command, timeout\nBuild → waits for Test, creates a wheel, retains the artifact\n\nPermissions: read source; no release credential required\nTrigger: review for pull-request trust boundary\nNext check: native YAML validation and a disposable branch run\nDeployment: outside this requested pipeline",
+    "example_note": "Fictional pipeline design. It is a review outline, not executable APR or a successful CI run.",
+    "install_notes": [
+      "Python 3.11 or later is required by the portable install/build helper. The installed method runs through your agent host.",
+      "Install the portable skill and stdlib APR checker without a model key.",
+      "Platform references are loaded as needed; the actual CI service and runner remain separate.",
+      "Keep secret values out of the design; name only the required secrets."
+    ],
+    "proof_summary": "The packaged APR checker exercises structural reference and cycle failures. Generated configuration still needs native validation, a real run and separate deployment acceptance.",
+    "next_step": "Point it at one project and ask for a build-and-test plan before changing CI triggers."
+  },
+  "repository_url": "https://github.com/michaeljabbour/amplifier-skill-pipeline"
 }
