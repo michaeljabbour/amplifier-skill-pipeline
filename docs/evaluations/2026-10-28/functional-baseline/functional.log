@@ -1,0 +1,8 @@
+test_cross_stage_cycle_is_rejected (__main__.Gate.test_cross_stage_cycle_is_rejected) ... ok
+test_undeclared_secret_and_unknown_artifact_consumer (__main__.Gate.test_undeclared_secret_and_unknown_artifact_consumer) ... ok
+test_valid_dependency_design (__main__.Gate.test_valid_dependency_design) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

@@ -1,0 +1,81 @@
+{
+  "id": "pipeline",
+  "display_name": "Pipeline",
+  "kind": "skill",
+  "promise": "Turn a project\u2019s actual build and release needs into a reviewable pipeline across CI platforms.",
+  "audience": "Developers creating or migrating CI/CD workflows.",
+  "trigger": "Create, audit, repair or migrate a build/test/release pipeline.",
+  "skill_path": "skills/pipeline",
+  "modes": [
+    {
+      "name": "Scout",
+      "when": "Project commands and deployment boundaries are unclear.",
+      "output": "An evidenced project profile."
+    },
+    {
+      "name": "Design",
+      "when": "The project profile is known.",
+      "output": "A platform-neutral APR with dependencies, secrets and approval boundaries."
+    },
+    {
+      "name": "Generate",
+      "when": "A target CI platform is selected.",
+      "output": "Native config plus validation evidence and operational limits."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Fictional worked example",
+      "brief": "A fictional task illustrating Pipeline.",
+      "before": "A platform migration copies YAML syntax but drops release approvals and artifact dependencies.",
+      "after": "An APR and native diff preserve triggers, jobs, approvals and consumers.",
+      "why": "A shared intermediate representation makes consequential drift reviewable.",
+      "fictional": true
+    }
+  ],
+  "boundaries": [
+    "Structural APR validation is not native syntax validation, a green CI run or deployment acceptance."
+  ],
+  "install_commands": [
+    "python3 scripts/capability.py install --dest ~/.agents/skills"
+  ],
+  "runtime_install_commands": [],
+  "verification": [
+    {
+      "name": "Functional acceptance",
+      "command": "python3 scripts/functional_gate.py",
+      "expected": "Supplied fictional tasks exercise actual mechanisms and failure boundaries.",
+      "status": "passed",
+      "evidence": "3 structural APR tests passed; native CI syntax/runner/deployment acceptance remains separate."
+    },
+    {
+      "name": "Native host acceptance",
+      "command": "See retained source integration guide",
+      "expected": "Actual provider/host/desktop/daemon/runner acceptance for the selected adapter.",
+      "status": "not-run",
+      "evidence": "No live model, real desktop transaction, invitation, deployment or production data migration was performed by this functional baseline."
+    }
+  ],
+  "sources": [
+    {
+      "repo": "amplifier-bundle-cicd",
+      "commit": "65334bbf3ec152893759f512d8572ee1bbf9a3bc",
+      "paths": [
+        "context/schemas/apr-schema.md",
+        "context/schemas/project-profile.md",
+        "context/philosophy.md",
+        "agents",
+        "modules",
+        "context"
+      ],
+      "license": "MIT",
+      "role": "Primary retained owner history, mechanisms and records; portable method consolidates the listed entry points."
+    }
+  ],
+  "consolidation": [
+    "One portable method entry with mode references; original native engines, agents and records retained as optional adapters."
+  ],
+  "docs": [
+    "docs/CONSOLIDATION.md"
+  ]
+}

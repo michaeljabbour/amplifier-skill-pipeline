@@ -1,4 +1,14 @@
-# amplifier-bundle-cicd
+# Pipeline
+
+Turn a project’s actual build and release needs into a reviewable pipeline across CI platforms.
+
+## Consolidated capability
+
+Portable method: [skills/pipeline/SKILL.md](skills/pipeline/SKILL.md). Install with `python3 scripts/capability.py install --dest ~/.agents/skills`. See [consolidation and runtime boundaries](docs/CONSOLIDATION.md). The retained source guide below documents the optional original host integration and historical evidence; it is not a new outcome claim.
+
+## Retained source guide
+
+### amplifier-bundle-cicd
 
 An Amplifier application bundle that designs, generates, audits, and maintains CI/CD pipelines for applications.
 

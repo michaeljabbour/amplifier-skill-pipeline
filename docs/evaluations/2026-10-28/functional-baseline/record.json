@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-28",
+  "status": "local-functional-baseline",
+  "source_commit": "65334bbf3ec152893759f512d8572ee1bbf9a3bc",
+  "python": "3.12.5",
+  "fixture_content": "fictional",
+  "model_calls": 0,
+  "notes": "3 structural APR tests passed; native CI syntax/runner/deployment acceptance remains separate.",
+  "limitations": [
+    "Structural APR validation is not native syntax validation, a green CI run or deployment acceptance."
+  ],
+  "files": {
+    "functional.log": "0c9c77304434ab0cb1f937ebb590c06f6b20df3c4cd787ab07c0758f40e6aa8f"
+  }
+}
