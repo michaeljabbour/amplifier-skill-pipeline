@@ -131,5 +131,12 @@
     "proof_summary": "The packaged APR checker exercises structural reference and cycle failures. Generated configuration still needs native validation, a real run and separate deployment acceptance.",
     "next_step": "Point it at one project and ask for a build-and-test plan before changing CI triggers."
   },
-  "repository_url": "https://github.com/michaeljabbour/amplifier-skill-pipeline"
+  "repository_url": "https://github.com/michaeljabbour/amplifier-skill-pipeline",
+  "film": {
+    "file": "pipeline-film",
+    "seconds": 72,
+    "heading": "A build is not a release.",
+    "blurb": "In 72 seconds, Pell the pelican drum major grabs a template, and the confetti cannon fires a release nobody asked for. Pipeline starts from the commands your project already runs, maps the order before any syntax, checks the map for loops, missing time limits and undeclared secrets, then writes the file for your platform with no publish step. Captions are on the player; a transcript is below.",
+    "note": "The project, pebblecount, is a fictional example. The film shows how the skill behaves; it does not report results."
+  }
 }

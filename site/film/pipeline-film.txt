@@ -1,0 +1,10 @@
+Meet Pell. Pell runs your checks, in order, whenever the code changes.
+You ask for a build. Pell grabs a template and blows the whistle.
+The tests call a command you don’t have. The package ships to the public.
+Pipeline starts with the commands your project already runs.
+Then it maps the order before any syntax. Build waits for test.
+A small checker catches loops, missing time limits and undeclared secrets.
+Then it writes the file for your platform, with no publish step. You asked for a build.
+The checker reads the map, not the file. Next comes a trial run. Releasing needs your yes.
+On screen: A build is not a release.
+Pipeline. Build the pipeline your project actually needs.
